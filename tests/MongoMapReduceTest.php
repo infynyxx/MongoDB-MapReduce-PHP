@@ -1,7 +1,6 @@
 <?php
 
-require_once 'PHPUnit/Framework.php';
-require_once 'lib/MongoMapReduce.php';
+require_once "_include.php";
 	
 class MongoMapReduceTest extends PHPUnit_Framework_TestCase	{
 	
