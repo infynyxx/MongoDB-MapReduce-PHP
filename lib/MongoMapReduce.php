@@ -174,7 +174,7 @@ class MongoMapReduce
 	}
 	
 	
-	///SETTERS METHODS///
+	///SETTER METHODS///
 	
 	public function setMap($map)	{
 		$this->map = $map;
