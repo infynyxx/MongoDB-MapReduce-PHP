@@ -1,11 +1,4 @@
 <?php
-
-/**
- * (c) Prajwal Tuladhar <praj@prajwal-tuladhar.net.np>
- * 
- * This class takes handles MapReduce Reponse
- *
- */
 class MongoMapReduceResponse	{
 	
 	/**
