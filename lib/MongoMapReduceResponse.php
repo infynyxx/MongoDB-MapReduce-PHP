@@ -18,6 +18,11 @@ class MongoMapReduceResponse	{
 	 */
 	private $mongoDB;
 	
+	/**
+	 * @var MongoCollection
+	 */
+	private $collection;
+	
 	
 	public function __construct(MongoDB $mongoDB, Array $mapReduce)	{
 		$this->_response = $mapReduce;
@@ -30,8 +35,10 @@ class MongoMapReduceResponse	{
 	 * @return MongoCursor
 	 */
 	public function getResultSet(Array $query =  Array())	{
-		$collection = new MongoCollection($this->mongoDB, $this->_response["result"]);
-		return $collection->find($query);
+		if (!isset($this->collection))	{
+			$this->collection = new MongoCollection($this->mongoDB, $this->_response["result"]);
+		}
+		return $this->collection->find($query);
 	}
 	
 	
@@ -90,5 +97,20 @@ class MongoMapReduceResponse	{
 	 */
 	public function getCountsData()	{
 		return $this->_response['counts'];
+	}
+	
+	
+	/**
+	 * Drop the collection created by MapReduce
+	 * @return Array
+	 */
+	public function dropResultSet()	{
+		if (!isset($this->collection))	{
+			$this->collection = new MongoCollection($this->mongoDB, $this->_response["result"]);
+		}
+		$db_response = $this->collection->drop();
+		$this->collection = NULL;
+		return $db_response;
+		
 	}
 }
