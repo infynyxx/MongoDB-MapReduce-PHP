@@ -149,15 +149,15 @@ class MongoMapReduce
 	private function prepare()	{
 		$this->_mapReduce = Array();
 		$this->_mapReduce[self::KEYS_MAPREDUCE] = $this->collectionNamespace;
-		$this->_mapReduce[self::KEYS_MAP] = $this->map;
-		$this->_mapReduce[self::KEYS_REDUCE] = $this->reduce;
+		$this->_mapReduce[self::KEYS_MAP] = new MongoCode($this->map);
+		$this->_mapReduce[self::KEYS_REDUCE] = new MongoCode($this->reduce);
 		$this->_mapReduce[self::KEYS_KEEP_TEMPORARY_COLLECTION] = $this->keepTemporaryCollection;
 		
 		if (!empty($this->query))
 			$this->_mapReduce[self::KEYS_QUERY] = $this->query;
 		
 		if (isset($this->finalize))
-			$this->_mapReduce[self::KEYS_FINALIZE] = $this->finalize;
+			$this->_mapReduce[self::KEYS_FINALIZE] = new MongoCode($this->finalize);
 		if (isset($this->outputCollection))
 			$this->_mapReduce[self::KEYS_OUTPUT_COLLECTION] = $this->outputCollection;
 			
