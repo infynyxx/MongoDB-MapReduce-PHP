@@ -1,0 +1,4 @@
+.project
+.buildpath
+.*.sw[a-z]
+*.un~
