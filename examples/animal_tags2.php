@@ -1,11 +1,8 @@
 <?php
 
-function __autoload($class_name) {
-    require_once "../lib/".$class_name . '.php';
-}
+require_once "_include.php";
 
-$db_name = "test_dbs";
-$mongodb = new MongoDB(new Mongo(), $db_name);
+$mongodb = mongodb_fixture();
 
 class AnimalTag extends XMongoCollection	{
 	

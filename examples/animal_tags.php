@@ -1,10 +1,8 @@
 <?php
-function __autoload($class_name) {
-    require_once "../lib/".$class_name . '.php';
-}
 
-$db_name = "test_dbs";
-$mongodb = new MongoDB(new Mongo(), $db_name);
+require_once "_include.php";
+
+$mongodb = mongodb_fixture();
 
 $map = <<<MAP
 	function()	{
@@ -27,7 +25,6 @@ REDUCE;
 $map_reduce = new MongoMapReduce($map, $reduce);
 $collection_name = "animal_tags";
 $response = $map_reduce->invoke($mongodb, $collection_name); 
-//print_r($response->getRawResponse());
 if ($response->valid())	{
 	echo "Total Execution Time: {$response->getTotalExecutionTime()} Milli Seconds\n";
 	$count_data = $response->getCountsData();
